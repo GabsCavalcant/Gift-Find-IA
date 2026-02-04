@@ -1,0 +1,100 @@
+/* Estilização geral do Gift Finder - Tema Claro */
+
+/* Configuração do background e fonte */
+.stApp {
+    /* A imagem é injetada via Python (Base64), aqui só ajusto o comportamento */
+    background-size: cover;
+    background-position: center; 
+    background-attachment: fixed; 
+    font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Cor do texto principal (verde escuro pra dar contraste) */
+.stMarkdown, p, span, label, div[data-testid="stWidgetLabel"] {
+    color: #1e3d2f !important; 
+    font-weight: 500;
+}
+
+/* Estilo dos títulos */
+h1, h2, h3 {
+    color: #1e3d2f !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.5px;
+    text-shadow: none; /* Tirei a sombra pra ficar mais clean */
+}
+
+/* Ajuste no cabeçalho do expander (setinha e texto) */
+.streamlit-expanderHeader p, .streamlit-expanderHeader svg {
+    color: #1e3d2f !important;
+    fill: #1e3d2f !important;
+    font-weight: bold;
+}
+
+/* Cards com efeito de vidro (glassmorphism) */
+div[data-testid="stVerticalBlockBorderWrapper"], .stExpander {
+    background-color: rgba(255, 255, 255, 0.85) !important; /* Fundo semi-transparente */
+    border: 1px solid #c4d4c9; 
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 8px 16px rgba(30, 61, 47, 0.1);
+    backdrop-filter: blur(8px); /* Blur no fundo */
+}
+
+/* Estilização dos inputs */
+.stTextInput input, .stNumberInput input, .stSelectbox div[data-baseweb="select"] {
+    background-color: #ffffff !important; 
+    color: #1e3d2f !important; 
+    border: 2px solid #e0e0e0 !important; 
+    border-radius: 8px;
+    padding: 10px 12px;
+}
+
+/* Cor do placeholder */
+::placeholder {
+    color: #9ca6a1 !important; 
+}
+
+/* Estado de focus do input */
+.stTextInput input:focus, .stNumberInput input:focus {
+    border-color: #c83e4d !important; /* Destaque vermelho ao clicar */
+    box-shadow: 0 0 0 3px rgba(200, 62, 77, 0.1) !important;
+}
+
+/* Botão principal de ação */
+.stButton button {
+    /* Gradiente vermelho pra destacar */
+    background: linear-gradient(135deg, #d32f2f 0%, #c62828 100%) !important;
+    color: white !important; 
+    font-weight: 700 !important;
+    border: none !important;
+    border-radius: 30px !important; 
+    padding: 14px 28px !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 10px rgba(211, 47, 47, 0.3);
+}
+
+.stButton button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(211, 47, 47, 0.5);
+    background: linear-gradient(135deg, #e53935 0%, #d32f2f 100%) !important;
+}
+
+/* Botão do Google Shopping */
+a.botao-google {
+    /* Cor neutra pra não conflitar com o botão principal */
+    background-color: #a67c52;
+    color: white !important;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Sidebar */
+section[data-testid="stSidebar"] {
+    background-color: rgba(255, 255, 255, 0.9); 
+    border-right: 1px solid #e0e0e0;
+}
+
+/* Força a cor dos textos na sidebar */
+section[data-testid="stSidebar"] p, section[data-testid="stSidebar"] span, section[data-testid="stSidebar"] label {
+    color: #1e3d2f !important;
+}
