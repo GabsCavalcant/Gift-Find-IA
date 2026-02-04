@@ -10,7 +10,8 @@
 ## 📸 Preview
 
 <div align="center">
-  <img src="https://via.placeholder.com/800x400?text=<img width="1919" height="1000" alt="image" src="https://github.com/user-attachments/assets/87442abe-db07-43d1-8d9c-663989383de8" />
+  <<img width="1919" height="1000" alt="image" src="https://github.com/user-attachments/assets/1d5fe20e-33fa-4794-8dbb-a6b07e628366" />
+
 " alt="Preview do Projeto" width="100%">
 </div>
 
