@@ -13,6 +13,11 @@
   <<img width="1919" height="1000" alt="image" src="https://github.com/user-attachments/assets/1d5fe20e-33fa-4794-8dbb-a6b07e628366" />
 </div>
 
+📸Resultados
+<div align="center">
+<img width="1919" height="996" alt="image" src="https://github.com/user-attachments/assets/f7af93e0-df07-4e90-8781-51333b8ad720" />
+</div>
+
 ## 📄 Sobre o Projeto
 
 O **AI Gift CANT** é uma aplicação web desenvolvida para resolver o problema de "não saber o que dar de presente". 
