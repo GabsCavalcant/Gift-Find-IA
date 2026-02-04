@@ -19,7 +19,7 @@ with st.sidebar:
     st.markdown("[Link pra pegar a chave](https://aistudio.google.com/app/apikey)")
 
 # 3. O "Cérebro" do App
-def buscar_presentes(chave, gosto, orcamento):
+def buscar_presentes(chave, gosto, orcamento, quem_e =None, cor=None, idade=None, ocasiao = None):
     # Conectando com a API usando a chave que o usuário passou
     client = genai.Client(api_key=chave)
     
@@ -28,14 +28,39 @@ def buscar_presentes(chave, gosto, orcamento):
     ferramenta = types.Tool(
         google_search=types.GoogleSearch()
     )
-
+    #Adicao de detalhes extras opcionais
+    detalhes_extras = ""
+    if quem_e and quem_e != "Não especificar":
+        detalhes_extras += f"O presente é para {quem_e} \n"
+    
+    if cor:
+        detalhes_extras += f"A cor favorida da Pessoa é: {cor} \n"
+    
+    try:
+        if idade > 0:
+            detalhes_extras += f"A idade da pessoa é: {idade}\n"
+    except ValueError as e:
+        print(f"Error, Numero invalido : {e}")     
+                
+    if ocasiao and ocasiao != "Não especificar":
+        detalhes_extras += f"A ocasião para o Presente é : {ocasiao}"
+    
     # Prompt tunado para retornar JSON. 
     # Se mudar isso aqui, pode quebrar o json.loads lá embaixo.
     prompt = f"""
     Aja como um personal shopper.
-    Use a BUSCA DO GOOGLE para encontrar 4 opções de presentes REAIS vendidos no Brasil.
+    Use a BUSCA DO GOOGLE para encontrar 5 opções de presentes REAIS vendidos no Brasil.
     Perfil: {gosto}.
     Orçamento Máximo: R$ {orcamento}.
+    e esses são os detalhes extras: {detalhes_extras}
+    
+
+    
+    DIRETRIZES:
+    1. Se tiver idade, verifique a adequação do produto.
+    2. Se tiver cor, priorize produtos nessa tonalidade.
+    3. o mesmo segue para ocasião
+    3. Retorne APENAS JSON puro.
     
     Regra: Retorne APENAS um JSON puro (sem markdown) neste formato:
     [
@@ -72,15 +97,30 @@ def buscar_presentes(chave, gosto, orcamento):
         return []
 
 # 4. Interface do Usuário (Frontend)
-st.title("🎁 Gift Finder AI")
+st.title("🎁 Gift Finder Cant AI")
 st.write("Projeto de estudo: Buscador de presentes com IA e preços reais.")
 
-# Usei colunas pra ficar lado a lado (mais bonito)
-col1, col2 = st.columns(2)
-with col1:
-    gosto_usuario = st.text_input("Do que a pessoa gosta?", placeholder="Ex: Gamer, Churrasco, Harry Potter")
-with col2:
-    orcamento_usuario = st.number_input("Orçamento (R$)", min_value=10.0, value=200.0)
+# Ucolunas pra ficar lado a lado (mais bonito)
+coluna1,coluna2  = st.columns(2)
+ 
+with coluna1:
+    gosto_usuario = st.text_input("Do que a pessoa gosta? (Obrigatorio)", placeholder="Ex: Gamer, Churrasco, Harry Potter")
+with coluna2:
+    orcamento_usuario = st.number_input("Orçamento (R$) (Obrigatorio)", min_value=10.0, value=200.0)
+    
+    
+#Campos opcionais
+
+with st.expander("Campos opcionais de Filtro - Aperte para abrir"):
+     #juntos para decomactar as colunas
+        c_opcao1, c_opcao2 = st.columns(2)
+        with c_opcao1:
+            quem_e_input = st.text_input("Insira Pra Quem Seria O Presente. ", placeholder= "Exemplo: Mãe, Amigo")
+            cor_input = st.text_input ("Insira A cor favorita dessa Pessoa", placeholder="Exemplo: Verde,Rosa")
+   
+        with c_opcao2:
+            idade_input = st.number_input("Insira A Idade ", placeholder= "Exemplo: 24", min_value=0, step=1, value=0, format="%d")
+            ocasiao_input = st.text_input("Insira A Ocasião Que Deseja Entregar O Presnete ", placeholder= "Exemplo: Aniversario")
 
 # Botão de ação
 if st.button("🔍 Pesquisar Presentes"):
@@ -92,7 +132,7 @@ if st.button("🔍 Pesquisar Presentes"):
     else:
         # Spinner pra dar feedback visual enquanto carrega
         with st.spinner(f"Perguntando pro Google sobre '{gosto_usuario}'..."):
-            sugestoes = buscar_presentes(api_key, gosto_usuario, orcamento_usuario)
+            sugestoes = buscar_presentes(api_key, gosto_usuario, orcamento_usuario, quem_e=quem_e_input, cor= cor_input, idade=idade_input,ocasiao=ocasiao_input)
             
             if sugestoes:
                 st.success("Achei essas opções:")
